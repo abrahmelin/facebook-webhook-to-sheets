@@ -1,4 +1,3 @@
-cat > package.json << 'EOF'
 {
   "name": "facebook-webhook-to-sheets",
   "version": "1.0.0",
@@ -13,10 +12,3 @@ cat > package.json << 'EOF'
     "googleapis": "^148.0.0"
   }
 }
-EOF
-
-# 6. JSON anahtarlarını repoda tutmamamız için .gitignore
-cat > .gitignore << 'EOF'
-# Service Account key files
-*.json
-EOF

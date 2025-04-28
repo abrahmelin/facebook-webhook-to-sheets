@@ -1,0 +1,5 @@
+# Node.js bağımlılıkları
+node_modules/
+
+# Google Service Account anahtar dosyaları
+leadtosheets-5aa9bd79b82f.json

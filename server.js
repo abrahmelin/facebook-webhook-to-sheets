@@ -1,8 +1,6 @@
-cat > server.js << 'EOF'
 const express = require('express');
 const bodyParser = require('body-parser');
 const { google } = require('googleapis');
-// Render'a yüklediğiniz Secret File adıyla eşleşmeli
 const keys = require('./leadtosheets-5aa9bd79b82f.json');
 
 const app = express();
@@ -23,7 +21,6 @@ app.get('/webhook', (req, res) => {
   const challenge = req.query['hub.challenge'];
 
   if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-    console.log('Webhook verified.');
     return res.status(200).send(challenge);
   }
   res.sendStatus(403);
@@ -34,9 +31,8 @@ app.post('/webhook', async (req, res) => {
   try {
     const spreadsheetId = '141MlZ6kx3SYGMOMmRsqVAvo-IuC9jjUTpPqNuMgBCfw';
     const sheetName = 'Sheet1';
-    const data = req.body;
     const values = [
-      [ new Date().toISOString(), JSON.stringify(data) ]
+      [ new Date().toISOString(), JSON.stringify(req.body) ]
     ];
     await sheets.spreadsheets.values.append({
       spreadsheetId,
@@ -44,7 +40,6 @@ app.post('/webhook', async (req, res) => {
       valueInputOption: 'USER_ENTERED',
       resource: { values }
     });
-    console.log('Data appended to sheet.');
     res.status(200).send('EVENT_RECEIVED');
   } catch (err) {
     console.error('Error writing to sheet:', err);
@@ -55,4 +50,3 @@ app.post('/webhook', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
-EOF
