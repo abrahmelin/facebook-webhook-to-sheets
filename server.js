@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 // Webhook doğrulama (Facebook çağırınca ilk buraya GET atar)
 app.get('/webhook', (req, res) => {
-  const VERIFY_TOKEN = "your_verify_token"; // Birazdan Facebook'a gireceğiz
+  const VERIFY_TOKEN = "verifyTokenForMeta2025"; // Birazdan Facebook'a gireceğiz
   const mode = req.query['hub.mode'];
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
